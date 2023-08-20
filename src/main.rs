@@ -12,9 +12,31 @@ use stm32f4xx_hal::{
     serial::Config,
 };
 
+mod light_characteristics;
+
+use chrono::{TimeZone, Utc as UTC};
+use light_characteristics::get_light_characteristics;
+
+fn print_light_characteristics() {
+    let datetime = UTC.with_ymd_and_hms(2023, 8, 20, 3, 30, 0).unwrap();
+
+    rprintln!("{:?}", datetime);
+
+    let position = light_characteristics::Coordinates {
+        lat: -33.8688,
+        lon: 151.2093,
+    };
+
+    let light_characteristics = get_light_characteristics(datetime, position).unwrap();
+
+    rprintln!("{:?}", light_characteristics);
+}
+
 #[entry]
 fn main() -> ! {
     rtt_init_print!();
+
+    print_light_characteristics();
 
     let dp = pac::Peripherals::take().unwrap();
     // let cp = cortex_m::peripheral::Peripherals::take().unwrap();

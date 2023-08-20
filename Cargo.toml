@@ -11,7 +11,8 @@ cortex-m-rt = "0.7"
 panic-halt = "0.2"
 rtt-target = { version = "0.2.1", features = ["cortex-m"] }
 panic-rtt-target = { version = "0.1.2", features = ["cortex-m"] }
+stm32f4xx-hal = {version = "0.17.1", features = ["stm32f411"]}
 
-[dependencies.stm32f4xx-hal]
-version = "0.17.1"
-features = ["stm32f411"]
+chrono = { version = "0.4.26", default-features = false }
+spa = "0.4.0"
+libm = "0.2.7"
