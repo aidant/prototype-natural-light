@@ -5,38 +5,41 @@
 extern crate panic_rtt_target;
 
 use cortex_m_rt::entry;
-use rtt_target::{rprintln, rtt_init_print};
+use heapless::Vec;
+use nmea::Nmea;
+use rtt_target::{rprint, rprintln, rtt_init_print};
 use stm32f4xx_hal::{
     pac::{self},
     prelude::*,
     serial::Config,
 };
-
-mod light_characteristics;
+// mod light_characteristics;
 
 use chrono::{TimeZone, Utc as UTC};
-use light_characteristics::get_light_characteristics;
+// use light_characteristics::get_light_characteristics;
 
-fn print_light_characteristics() {
-    let datetime = UTC.with_ymd_and_hms(2023, 8, 20, 3, 30, 0).unwrap();
+// fn print_light_characteristics() {
+//     let datetime = UTC.with_ymd_and_hms(2023, 8, 20, 3, 30, 0).unwrap();
 
-    rprintln!("{:?}", datetime);
+//     rprintln!("{:?}", datetime);
 
-    let position = light_characteristics::Coordinates {
-        lat: -33.8688,
-        lon: 151.2093,
-    };
+//     let position = light_characteristics::Coordinates {
+//         lat: -33.8688,
+//         lon: 151.2093,
+//     };
 
-    let light_characteristics = get_light_characteristics(datetime, position).unwrap();
+//     let light_characteristics = get_light_characteristics(datetime, position).unwrap();
 
-    rprintln!("{:?}", light_characteristics);
-}
+//     rprintln!("{:?}", light_characteristics);
+// }
 
 #[entry]
 fn main() -> ! {
     rtt_init_print!();
 
-    print_light_characteristics();
+    let mut nmea = Nmea::default();
+
+    // print_light_characteristics();
 
     let dp = pac::Peripherals::take().unwrap();
     // let cp = cortex_m::peripheral::Peripherals::take().unwrap();
@@ -62,13 +65,31 @@ fn main() -> ! {
     // let gpioc = dp.GPIOC.split();
     // let mut led = gpioc.pc13.into_push_pull_output();
 
+    let mut message = Vec::<u8, 82>::new();
+
     loop {
         // led.toggle();
         // rprintln!("Hello World!");
         // delay.delay_ms(2000_u32);
 
-        rprintln!("Hello World!");
-        let byte = nb::block!(serial.read()).unwrap();
-        rprintln!("here is the byte: {}", byte);
+        // rprintln!("Hello World!");
+
+        match nb::block!(serial.read()) {
+            Ok(byte) => {
+                message.push(byte).unwrap();
+
+                if byte == b'\n' {
+                    let sentence = core::str::from_utf8(&message).unwrap();
+                    rprint!("{}", sentence);
+
+                    nmea.parse(sentence).unwrap();
+                    rprintln!("{}", nmea);
+
+                    message.clear();
+                }
+            }
+            Err(error) => rprintln!("unknown error {}", error),
+        }
+        // ;
     }
 }
