@@ -4,16 +4,56 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-embedded-hal = "0.2"
-nb = "1"
-cortex-m = "0.7"
-cortex-m-rt = "0.7"
-rtt-target = { version = "0.2.1", features = ["cortex-m"] }
-panic-rtt-target = { version = "0.1.2", features = ["cortex-m"] }
-stm32f4xx-hal = {version = "0.17.1", features = ["stm32f411"]}
+cortex-m = { version = "0.7.6", features = [
+  "inline-asm",
+  "critical-section-single-core",
+] }
+cortex-m-rt = "0.7.0"
 
-chrono = { version = "0.4.26", default-features = false }
-spa = "0.4.0"
-libm = "0.2.7"
-heapless = "0.7.16"
-nmea = { version = "0.5", default-features = false, features = ["all-sentences"] }
+defmt = "0.3"
+defmt-rtt = "0.4"
+
+panic-probe = { version = "0.3", features = ["print-defmt"] }
+
+[dependencies.embassy-stm32]
+package = "embassy-stm32"
+git = "https://github.com/embassy-rs/embassy/"
+rev = "7bff2ebab3b36cc922505e9db961840109c509ed"
+features = ["defmt", "stm32f411ce", "time-driver-any"]
+
+
+[dependencies.embassy-executor]
+package = "embassy-executor"
+git = "https://github.com/embassy-rs/embassy/"
+rev = "7bff2ebab3b36cc922505e9db961840109c509ed"
+features = [
+  "defmt",
+  "nightly",
+  "arch-cortex-m",
+  "executor-thread",
+  "executor-interrupt",
+  "integrated-timers",
+]
+
+[dependencies.embassy-time]
+package = "embassy-time"
+git = "https://github.com/embassy-rs/embassy/"
+rev = "7bff2ebab3b36cc922505e9db961840109c509ed"
+features = ["defmt", "defmt-timestamp-uptime", "tick-hz-32_768"]
+
+# defmt = "0.3"
+# defmt-rtt = "0.4"
+
+# cortex-m = { version = "0.7.6", features = ["inline-asm", "critical-section-single-core"] }
+
+# embedded-hal = "0.2.6"
+# embedded-io = { version = "0.5.0" }
+# embedded-io-async = { version = "0.5.0" }
+# panic-probe = { version = "0.3", features = ["print-defmt"] }
+# futures = { version = "0.3.17", default-features = false, features = ["async-await"] }
+# heapless = { version = "0.7.5", default-features = false }
+# nb = "1.0.0"
+# embedded-storage = "0.3.0"
+# micromath = "2.0.0"
+# static_cell = { version = "1.1", features = ["nightly"]}
+# chrono = { version = "^0.4", default-features = false}
