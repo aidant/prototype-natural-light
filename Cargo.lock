@@ -209,11 +209,14 @@ version = "0.1.0"
 source = "git+https://github.com/embassy-rs/embassy/?rev=7bff2ebab3b36cc922505e9db961840109c509ed#7bff2ebab3b36cc922505e9db961840109c509ed"
 dependencies = [
  "defmt",
+ "embassy-futures",
  "embassy-sync",
  "embassy-time",
  "embedded-hal 0.2.7",
  "embedded-hal 1.0.0-rc.1",
+ "embedded-hal-async",
  "embedded-storage",
+ "embedded-storage-async",
  "nb 1.1.0",
 ]
 
@@ -289,9 +292,12 @@ dependencies = [
  "embassy-time",
  "embassy-usb-driver",
  "embedded-hal 0.2.7",
+ "embedded-hal 1.0.0-rc.1",
+ "embedded-hal-async",
  "embedded-io",
  "embedded-io-async",
  "embedded-storage",
+ "embedded-storage-async",
  "futures",
  "nb 1.1.0",
  "proc-macro2",
@@ -355,6 +361,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2894bc2f0457b8ca3d6b8ab8aad64d9337583672494013457f86c5a9146c0e22"
 
 [[package]]
+name = "embedded-hal-async"
+version = "1.0.0-rc.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "76a8a3517745342155b3b00895a0f78417a453fb800d97a8bf4777d5720acde9"
+dependencies = [
+ "embedded-hal 1.0.0-rc.1",
+]
+
+[[package]]
 name = "embedded-io"
 version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -378,6 +393,15 @@ name = "embedded-storage"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "156d7a2fdd98ebbf9ae579cbceca3058cff946e13f8e17b90e3511db0508c723"
+
+[[package]]
+name = "embedded-storage-async"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "052997a894670d0cde873faa7405bc98e2fd29f569d2acd568561bc1c396b35a"
+dependencies = [
+ "embedded-storage",
+]
 
 [[package]]
 name = "fnv"
@@ -592,6 +616,7 @@ dependencies = [
  "embassy-executor",
  "embassy-stm32",
  "embassy-time",
+ "heapless",
  "panic-probe",
 ]
 

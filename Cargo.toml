@@ -15,11 +15,13 @@ defmt-rtt = "0.4"
 
 panic-probe = { version = "0.3", features = ["print-defmt"] }
 
+heapless = "0.7.16"
+
 [dependencies.embassy-stm32]
 package = "embassy-stm32"
 git = "https://github.com/embassy-rs/embassy/"
 rev = "7bff2ebab3b36cc922505e9db961840109c509ed"
-features = ["defmt", "stm32f411ce", "time-driver-any"]
+features = ["defmt", "nightly", "stm32f411ce", "time-driver-any"]
 
 
 [dependencies.embassy-executor]
@@ -40,20 +42,3 @@ package = "embassy-time"
 git = "https://github.com/embassy-rs/embassy/"
 rev = "7bff2ebab3b36cc922505e9db961840109c509ed"
 features = ["defmt", "defmt-timestamp-uptime", "tick-hz-32_768"]
-
-# defmt = "0.3"
-# defmt-rtt = "0.4"
-
-# cortex-m = { version = "0.7.6", features = ["inline-asm", "critical-section-single-core"] }
-
-# embedded-hal = "0.2.6"
-# embedded-io = { version = "0.5.0" }
-# embedded-io-async = { version = "0.5.0" }
-# panic-probe = { version = "0.3", features = ["print-defmt"] }
-# futures = { version = "0.3.17", default-features = false, features = ["async-await"] }
-# heapless = { version = "0.7.5", default-features = false }
-# nb = "1.0.0"
-# embedded-storage = "0.3.0"
-# micromath = "2.0.0"
-# static_cell = { version = "1.1", features = ["nightly"]}
-# chrono = { version = "^0.4", default-features = false}

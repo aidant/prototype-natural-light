@@ -8,22 +8,28 @@ extern crate panic_probe;
 
 use defmt::*;
 use embassy_executor::Spawner;
-use embassy_stm32::gpio::{Level, Output, Speed};
-use embassy_time::{Duration, Timer};
+use embassy_stm32::{dma::NoDma, peripherals};
+
+mod device_adafruit_ultimate_gps;
+
+#[embassy_executor::task]
+async fn gps(
+    usart: peripherals::USART1,
+    pin_rx: peripherals::PB7,
+    pin_tx: peripherals::PB6,
+    dma_rx: peripherals::DMA2_CH2,
+    dma_tx: NoDma,
+) {
+    device_adafruit_ultimate_gps::get_messages(usart, pin_rx, pin_tx, dma_rx, dma_tx).await;
+}
 
 #[embassy_executor::main]
-async fn main(_spawner: Spawner) {
+async fn main(spawner: Spawner) {
     let p = embassy_stm32::init(Default::default());
 
     info!("Hello World!");
 
-    let mut led = Output::new(p.PC13, Level::High, Speed::Low);
-
-    loop {
-        led.set_high();
-        Timer::after(Duration::from_millis(300)).await;
-
-        led.set_low();
-        Timer::after(Duration::from_millis(300)).await;
-    }
+    spawner
+        .spawn(gps(p.USART1, p.PB7, p.PB6, p.DMA2_CH2, NoDma))
+        .unwrap();
 }
