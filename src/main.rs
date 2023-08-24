@@ -11,6 +11,9 @@ use embassy_executor::Spawner;
 use embassy_stm32::Peripherals;
 
 mod device_adafruit_ultimate_gps;
+mod device_neopixel_ring;
+mod device_piicodev_oled;
+mod light_characteristics;
 
 #[embassy_executor::task]
 async fn gps(p: Peripherals) {
