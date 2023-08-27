@@ -41,7 +41,7 @@ impl Gnss {
     }
 
     pub fn parse_message(&mut self, message: &str) -> (Option<DateTime<Utc>>, Option<Coordinates>) {
-        self.nmea.parse(message);
+        let _ = self.nmea.parse(message);
 
         self.get()
     }

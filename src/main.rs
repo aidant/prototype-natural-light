@@ -37,7 +37,13 @@ async fn main(_spawner: Spawner) {
     adafruit_neopixel_ring.write_off().await;
 
     loop {
-        let message = adafruit_ultimate_gps.read_message().await.unwrap();
+        let message = match adafruit_ultimate_gps.read_message().await {
+            Result::Ok(message) => message,
+            Result::Err(error) => {
+                error!("{}", error);
+                continue;
+            }
+        };
 
         // info!("{}", message);
 

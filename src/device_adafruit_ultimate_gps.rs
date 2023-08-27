@@ -27,8 +27,6 @@ pub enum Error {
     SerialBufferTooLong,
     SerialOther,
 
-    MessageOverrun,
-
     MessageUtf8Error,
 }
 
@@ -42,12 +40,6 @@ impl From<usart::Error> for Error {
             usart::Error::BufferTooLong => Self::SerialBufferTooLong,
             _ => Self::SerialOther,
         }
-    }
-}
-
-impl From<u8> for Error {
-    fn from(_value: u8) -> Self {
-        Self::MessageOverrun
     }
 }
 
@@ -84,12 +76,17 @@ impl<'a> AdafruitUltimateGps<'a> {
             let len = self.usart.read(&mut self.buf).await?;
 
             for byte in self.buf.iter().take(len) {
-                self.msg.push(*byte)?;
+                match self.msg.push(*byte) {
+                    Err(_) => {
+                        self.msg.clear();
+                    }
+                    Ok(_) => {
+                        if *byte == b'\n' {
+                            string = Option::Some(String::from(core::str::from_utf8(&self.msg)?));
 
-                if *byte == b'\n' {
-                    string = Option::Some(String::from(core::str::from_utf8(&self.msg)?));
-
-                    self.msg.clear();
+                            self.msg.clear();
+                        }
+                    }
                 }
             }
 
