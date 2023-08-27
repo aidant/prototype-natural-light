@@ -1,4 +1,4 @@
-[target.thumbv7em-none-eabi]
+[target.thumbv7em-none-eabihf]
 runner = 'probe-rs run --chip STM32F411CEUx'
 rustflags = [
   "-C",
@@ -10,7 +10,7 @@ rustflags = [
 ]
 
 [build]
-target = "thumbv7em-none-eabi"
+target = "thumbv7em-none-eabihf"
 
 [env]
 DEFMT_LOG = "info"

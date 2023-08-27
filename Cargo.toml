@@ -29,14 +29,15 @@ static_cell = "1.2.0"
 
 [dependencies.ws2812-async]
 git = "https://github.com/kalkyl/ws2812-async"
-rev = "4aef05b1bb40ae7a6ba057ffbd51b84f080b187c"
+rev = "200a75242dc03f81980deb4bf7a0c749a2e233d4"
 
 [dependencies.embassy-stm32]
 package = "embassy-stm32"
 git = "https://github.com/embassy-rs/embassy/"
-rev = "7bff2ebab3b36cc922505e9db961840109c509ed"
+rev = "13f050167346ce262ea33c0757496b832c90fa58"
 features = [
   "defmt",
+  "chrono",
   "nightly",
   "stm32f411ce",
   "time-driver-any",
@@ -47,7 +48,7 @@ features = [
 [dependencies.embassy-executor]
 package = "embassy-executor"
 git = "https://github.com/embassy-rs/embassy/"
-rev = "7bff2ebab3b36cc922505e9db961840109c509ed"
+rev = "13f050167346ce262ea33c0757496b832c90fa58"
 features = [
   "defmt",
   "nightly",
@@ -60,11 +61,11 @@ features = [
 [dependencies.embassy-time]
 package = "embassy-time"
 git = "https://github.com/embassy-rs/embassy/"
-rev = "7bff2ebab3b36cc922505e9db961840109c509ed"
+rev = "13f050167346ce262ea33c0757496b832c90fa58"
 features = ["defmt", "defmt-timestamp-uptime", "tick-hz-32_768"]
 
 [dependencies.embassy-embedded-hal]
 package = "embassy-embedded-hal"
 git = "https://github.com/embassy-rs/embassy/"
-rev = "7bff2ebab3b36cc922505e9db961840109c509ed"
+rev = "13f050167346ce262ea33c0757496b832c90fa58"
 features = ["defmt"]
