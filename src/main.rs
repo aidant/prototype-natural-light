@@ -6,10 +6,14 @@
 extern crate defmt_rtt;
 extern crate panic_probe;
 
-use chrono::{DateTime, Utc};
+use core::ops::Sub;
+
+use chrono::{DateTime, Datelike, NaiveDateTime, Utc};
 use defmt::*;
 use embassy_executor::Spawner;
-use embassy_stm32::peripherals;
+use embassy_stm32::rtc::{Rtc, RtcClockSource, RtcConfig};
+use embassy_stm32::{peripherals, Config};
+use embassy_time::{Duration, Timer};
 use feature_gnss::Coordinates;
 
 use crate::{
@@ -35,7 +39,10 @@ async fn get_datetime_and_coordinates(
 
     loop {
         let message = match adafruit_ultimate_gps.read_message().await {
-            Result::Ok(message) => message,
+            Result::Ok(message) => {
+                info!("{}", message);
+                message
+            }
             Result::Err(error) => {
                 error!("{}", error);
                 continue;
@@ -50,7 +57,10 @@ async fn get_datetime_and_coordinates(
 
 #[embassy_executor::main]
 async fn main(_spawner: Spawner) {
-    let p = embassy_stm32::init(Default::default());
+    let mut config = Config::default();
+    config.rcc.rtc = Option::Some(RtcClockSource::LSI);
+
+    let p = embassy_stm32::init(config);
 
     let mut adafruit_neopixel_ring =
         AdafruitNeoPixelRing::new(p.SPI1, p.PA7, p.DMA2_CH3, p.DMA2_CH0);
@@ -59,14 +69,25 @@ async fn main(_spawner: Spawner) {
 
     let (datetime, coordinates) = get_datetime_and_coordinates(p.USART1, p.PB7, p.DMA2_CH2).await;
 
-    let lc = get_light_characteristics(datetime, coordinates).unwrap();
+    let mut rtc = Rtc::new(p.RTC, RtcConfig::default());
+    rtc.set_datetime(datetime.naive_utc().into()).unwrap();
 
-    info!(
-        "brightness: {} color_temperature: {}",
-        lc.brightness, lc.color_temperature
-    );
+    loop {
+        let now: DateTime<Utc> = Into::<NaiveDateTime>::into(rtc.now().unwrap()).and_utc();
 
-    adafruit_neopixel_ring
-        .write_light_characteristics(&lc)
-        .await;
+        let lc = get_light_characteristics(now, &coordinates).unwrap();
+
+        info!("{}", now.timestamp());
+
+        info!(
+            "brightness: {} color_temperature: {}",
+            lc.brightness, lc.color_temperature
+        );
+
+        adafruit_neopixel_ring
+            .write_light_characteristics(&lc)
+            .await;
+
+        Timer::after(Duration::from_millis(1000)).await;
+    }
 }

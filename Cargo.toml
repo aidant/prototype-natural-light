@@ -33,8 +33,8 @@ rev = "200a75242dc03f81980deb4bf7a0c749a2e233d4"
 
 [dependencies.embassy-stm32]
 package = "embassy-stm32"
-git = "https://github.com/embassy-rs/embassy/"
-rev = "13f050167346ce262ea33c0757496b832c90fa58"
+git = "https://github.com/aidant/embassy/"
+rev = "59a5e84df584faed5676de027601d09772be55f7"
 features = [
   "defmt",
   "chrono",
@@ -47,8 +47,8 @@ features = [
 
 [dependencies.embassy-executor]
 package = "embassy-executor"
-git = "https://github.com/embassy-rs/embassy/"
-rev = "13f050167346ce262ea33c0757496b832c90fa58"
+git = "https://github.com/aidant/embassy/"
+rev = "59a5e84df584faed5676de027601d09772be55f7"
 features = [
   "defmt",
   "nightly",
@@ -60,12 +60,12 @@ features = [
 
 [dependencies.embassy-time]
 package = "embassy-time"
-git = "https://github.com/embassy-rs/embassy/"
-rev = "13f050167346ce262ea33c0757496b832c90fa58"
+git = "https://github.com/aidant/embassy/"
+rev = "59a5e84df584faed5676de027601d09772be55f7"
 features = ["defmt", "defmt-timestamp-uptime", "tick-hz-32_768"]
 
 [dependencies.embassy-embedded-hal]
 package = "embassy-embedded-hal"
-git = "https://github.com/embassy-rs/embassy/"
-rev = "13f050167346ce262ea33c0757496b832c90fa58"
+git = "https://github.com/aidant/embassy/"
+rev = "59a5e84df584faed5676de027601d09772be55f7"
 features = ["defmt"]

@@ -39,7 +39,7 @@ struct SolarPosition {
 
 fn get_solar_position(
     datetime: chrono::DateTime<chrono::Utc>,
-    coordinates: Coordinates,
+    coordinates: &Coordinates,
 ) -> Option<SolarPosition> {
     match spa::solar_position::<LibMFloatOptions>(datetime, coordinates.lat, coordinates.lon) {
         Result::Err(error) => match error {
@@ -53,7 +53,7 @@ fn get_solar_position(
 }
 
 fn get_brightness(position: &SolarPosition) -> f64 {
-    cos(position.elevation / 90.0)
+    sin(position.elevation.to_radians()).max(0.0)
 }
 
 fn get_color_temperature(position: &SolarPosition) -> f64 {
@@ -68,9 +68,9 @@ pub struct LightCharacteristics {
 
 pub fn get_light_characteristics(
     datetime: chrono::DateTime<chrono::Utc>,
-    coordinates: Coordinates,
+    coordinates: &Coordinates,
 ) -> Option<LightCharacteristics> {
-    let solar_position = get_solar_position(datetime, coordinates)?;
+    let solar_position = get_solar_position(datetime, &coordinates)?;
 
     Option::Some(LightCharacteristics {
         brightness: get_brightness(&solar_position),

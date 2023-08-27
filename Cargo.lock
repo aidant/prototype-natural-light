@@ -240,7 +240,7 @@ dependencies = [
 [[package]]
 name = "embassy-embedded-hal"
 version = "0.1.0"
-source = "git+https://github.com/embassy-rs/embassy/?rev=13f050167346ce262ea33c0757496b832c90fa58#13f050167346ce262ea33c0757496b832c90fa58"
+source = "git+https://github.com/aidant/embassy/?rev=59a5e84df584faed5676de027601d09772be55f7#59a5e84df584faed5676de027601d09772be55f7"
 dependencies = [
  "defmt",
  "embassy-futures",
@@ -257,7 +257,7 @@ dependencies = [
 [[package]]
 name = "embassy-executor"
 version = "0.3.0"
-source = "git+https://github.com/embassy-rs/embassy/?rev=13f050167346ce262ea33c0757496b832c90fa58#13f050167346ce262ea33c0757496b832c90fa58"
+source = "git+https://github.com/aidant/embassy/?rev=59a5e84df584faed5676de027601d09772be55f7#59a5e84df584faed5676de027601d09772be55f7"
 dependencies = [
  "atomic-polyfill 1.0.3",
  "cortex-m",
@@ -272,12 +272,12 @@ dependencies = [
 [[package]]
 name = "embassy-futures"
 version = "0.1.0"
-source = "git+https://github.com/embassy-rs/embassy/?rev=13f050167346ce262ea33c0757496b832c90fa58#13f050167346ce262ea33c0757496b832c90fa58"
+source = "git+https://github.com/aidant/embassy/?rev=59a5e84df584faed5676de027601d09772be55f7#59a5e84df584faed5676de027601d09772be55f7"
 
 [[package]]
 name = "embassy-hal-internal"
 version = "0.1.0"
-source = "git+https://github.com/embassy-rs/embassy/?rev=13f050167346ce262ea33c0757496b832c90fa58#13f050167346ce262ea33c0757496b832c90fa58"
+source = "git+https://github.com/aidant/embassy/?rev=59a5e84df584faed5676de027601d09772be55f7#59a5e84df584faed5676de027601d09772be55f7"
 dependencies = [
  "cortex-m",
  "critical-section",
@@ -288,7 +288,7 @@ dependencies = [
 [[package]]
 name = "embassy-macros"
 version = "0.2.1"
-source = "git+https://github.com/embassy-rs/embassy/?rev=13f050167346ce262ea33c0757496b832c90fa58#13f050167346ce262ea33c0757496b832c90fa58"
+source = "git+https://github.com/aidant/embassy/?rev=59a5e84df584faed5676de027601d09772be55f7#59a5e84df584faed5676de027601d09772be55f7"
 dependencies = [
  "darling",
  "proc-macro2",
@@ -299,7 +299,7 @@ dependencies = [
 [[package]]
 name = "embassy-net-driver"
 version = "0.1.0"
-source = "git+https://github.com/embassy-rs/embassy/?rev=13f050167346ce262ea33c0757496b832c90fa58#13f050167346ce262ea33c0757496b832c90fa58"
+source = "git+https://github.com/aidant/embassy/?rev=59a5e84df584faed5676de027601d09772be55f7#59a5e84df584faed5676de027601d09772be55f7"
 dependencies = [
  "defmt",
 ]
@@ -307,7 +307,7 @@ dependencies = [
 [[package]]
 name = "embassy-stm32"
 version = "0.1.0"
-source = "git+https://github.com/embassy-rs/embassy/?rev=13f050167346ce262ea33c0757496b832c90fa58#13f050167346ce262ea33c0757496b832c90fa58"
+source = "git+https://github.com/aidant/embassy/?rev=59a5e84df584faed5676de027601d09772be55f7#59a5e84df584faed5676de027601d09772be55f7"
 dependencies = [
  "atomic-polyfill 1.0.3",
  "bit_field",
@@ -349,7 +349,7 @@ dependencies = [
 [[package]]
 name = "embassy-sync"
 version = "0.2.0"
-source = "git+https://github.com/embassy-rs/embassy/?rev=13f050167346ce262ea33c0757496b832c90fa58#13f050167346ce262ea33c0757496b832c90fa58"
+source = "git+https://github.com/aidant/embassy/?rev=59a5e84df584faed5676de027601d09772be55f7#59a5e84df584faed5676de027601d09772be55f7"
 dependencies = [
  "cfg-if",
  "critical-section",
@@ -361,7 +361,7 @@ dependencies = [
 [[package]]
 name = "embassy-time"
 version = "0.1.2"
-source = "git+https://github.com/embassy-rs/embassy/?rev=13f050167346ce262ea33c0757496b832c90fa58#13f050167346ce262ea33c0757496b832c90fa58"
+source = "git+https://github.com/aidant/embassy/?rev=59a5e84df584faed5676de027601d09772be55f7#59a5e84df584faed5676de027601d09772be55f7"
 dependencies = [
  "atomic-polyfill 1.0.3",
  "cfg-if",
@@ -375,7 +375,7 @@ dependencies = [
 [[package]]
 name = "embassy-usb-driver"
 version = "0.1.0"
-source = "git+https://github.com/embassy-rs/embassy/?rev=13f050167346ce262ea33c0757496b832c90fa58#13f050167346ce262ea33c0757496b832c90fa58"
+source = "git+https://github.com/aidant/embassy/?rev=59a5e84df584faed5676de027601d09772be55f7#59a5e84df584faed5676de027601d09772be55f7"
 dependencies = [
  "defmt",
 ]
