@@ -2,6 +2,8 @@ struct LibMFloatOptions;
 
 use libm::{acos, asin, atan, atan2, cos, sin, tan, trunc};
 
+use crate::feature_gnss::Coordinates;
+
 impl spa::FloatOps for LibMFloatOptions {
     fn sin(x: f64) -> f64 {
         sin(x)
@@ -27,12 +29,6 @@ impl spa::FloatOps for LibMFloatOptions {
     fn trunc(x: f64) -> f64 {
         trunc(x)
     }
-}
-
-#[derive(Debug)]
-pub struct Coordinates {
-    pub lat: f64,
-    pub lon: f64,
 }
 
 #[derive(Debug)]

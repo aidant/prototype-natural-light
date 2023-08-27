@@ -32,6 +32,19 @@ impl AdafruitNeoPixelRing<'_> {
         Self { driver: ws }
     }
 
+    pub async fn write_off(&mut self) {
+        let mut data = [RGB8::default(); 12];
+
+        for i in 0..12 {
+            data[i] = RGB8 { r: 0, g: 0, b: 0 };
+        }
+
+        self.driver
+            .write(gamma(data.iter().cloned()))
+            .await
+            .unwrap();
+    }
+
     pub async fn write_light_characteristics(&mut self, lc: &LightCharacteristics) {
         let mut data = [RGB8::default(); 12];
 
